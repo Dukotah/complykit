@@ -680,6 +680,34 @@ acceptAllLines[0] + '\n' +
   }
 
   // Render one document's block tree into a preview pane (safe DOM only).
+  /* Contextual lead capture for the generator: ComplyKit docs are templates,
+   * not legal advice — so offer a pre-filled quote to have the generated doc
+   * professionally reviewed and installed. Only the doc type + business name
+   * (both user-supplied for display already) go into the email. */
+  function buildFixCta(doc, m) {
+    var docName = doc.title || "compliance document";
+    var who = (m && m.displayName) || "my business";
+    var subject = "Quote — review & install my " + docName + " from ComplyKit";
+    var body = "Hi Copper Bay,\n\nI generated a " + docName + " for " + who +
+      " using ComplyKit. Since it's a template and not legal advice, I'd like a " +
+      "no-obligation quote to have it reviewed for my situation and installed " +
+      "correctly on my site (policy pages + consent banner wired up). Thanks!";
+    var href = "mailto:contact@copperbaytech.com?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(body);
+    var cta = el("div", "fix-cta");
+    cta.setAttribute("style", "display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:22px 0 6px;padding:16px 18px;border:1px solid var(--copper,#bf6b3c);background:var(--copper-tint,#f6ebe2);border-radius:12px");
+    var copy = el("div"); copy.setAttribute("style", "max-width:48ch");
+    var strong = el("strong", null, "Want this reviewed and installed for you?");
+    strong.setAttribute("style", "display:block;margin-bottom:3px");
+    var sub = el("span", null, "This is a solid starting template — Copper Bay Tech can tailor it to your business and wire the policy pages and consent banner into your site. Get a no-obligation quote (your doc type is pre-filled).");
+    sub.setAttribute("style", "color:var(--muted,#665f54);font-size:14px");
+    copy.appendChild(strong); copy.appendChild(sub);
+    var btn = el("a", "btn primary", "Get a free quote →");
+    btn.setAttribute("href", href); btn.setAttribute("style", "white-space:nowrap");
+    cta.appendChild(copy); cta.appendChild(btn);
+    return cta;
+  }
+
   function renderDocToPane(doc, m, pane) {
     pane.textContent = "";
 
@@ -724,6 +752,8 @@ acceptAllLines[0] + '\n' +
           break;
       }
     }
+
+    pane.appendChild(buildFixCta(doc, m));
   }
 
   // Turn URLs in a plain-text string into safe <a> nodes inside a <p>.
