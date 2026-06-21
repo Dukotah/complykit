@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do I Need a Privacy Policy for My Website? The Actual Legal Requirements</title>
+<meta name="description" content="GDPR, CCPA, and CalOPPA all require a privacy policy if your site collects data — and most sites do. Here's who is covered, what triggers the requirement, and what your policy must include.">
+<link rel="canonical" href="https://labs.copperbaytech.com/complykit/guides/do-i-need-a-privacy-policy.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ComplyKit">
+<meta property="og:title" content="Do I Need a Privacy Policy for My Website? The Actual Legal Requirements">
+<meta property="og:description" content="GDPR, CCPA, and CalOPPA all require a privacy policy if your site collects data — and most sites do. Here's who is covered, what triggers the requirement, and what your policy must include.">
+<meta property="og:url" content="https://labs.copperbaytech.com/complykit/guides/do-i-need-a-privacy-policy.html">
+<meta property="og:image" content="https://labs.copperbaytech.com/complykit/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#faf8f4">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Do I Need a Privacy Policy for My Website? The Actual Legal Requirements","description":"GDPR, CCPA, and CalOPPA all require a privacy policy if your site collects personal data — and nearly every site does. This guide covers which laws apply, what triggers the requirement, and exactly what your policy must say.","author":{"@type":"Organization","name":"Copper Bay Labs","url":"https://copperbaytech.com"},"publisher":{"@type":"Organization","name":"Copper Bay Labs","url":"https://copperbaytech.com"},"datePublished":"2026-06-21","dateModified":"2026-06-21","mainEntityOfPage":"https://labs.copperbaytech.com/complykit/guides/do-i-need-a-privacy-policy.html","mainEntity":{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need a privacy policy if my website is free and doesn't sell anything?","acceptedAnswer":{"@type":"Answer","text":"Almost certainly yes. Whether your site charges money is irrelevant to privacy law — what matters is whether you collect personal data. A free tool that runs Google Analytics still collects IP addresses and cookie identifiers. A portfolio site with a contact form collects email addresses. Under GDPR, any of these constitutes data processing that requires a privacy policy. Under CalOPPA, commercial intent — including a free tool you might monetize later — is enough to trigger the requirement."}},{"@type":"Question","name":"Does GDPR apply to me if I'm not based in Europe?","acceptedAnswer":{"@type":"Answer","text":"Yes. GDPR applies based on where your visitors are, not where your business is located. If your website is accessible to people in the EU or UK — and most public websites are — and you process their personal data, GDPR applies. The law has explicit language covering businesses established outside the EU that offer goods or services to, or monitor the behavior of, EU data subjects. A developer in the US, Australia, or Singapore can owe GDPR obligations for their EU traffic."}},{"@type":"Question","name":"What counts as collecting personal data?","acceptedAnswer":{"@type":"Answer","text":"More things than most people expect. Personal data includes names, email addresses, IP addresses, cookie identifiers, and any information that can identify or single out an individual. Under GDPR, an IP address alone qualifies as personal data. This means Google Analytics, server access logs, contact forms, newsletter signups, and login systems all constitute personal data collection — even if you never consciously think of them as data collection."}},{"@type":"Question","name":"What happens if I don't have a privacy policy?","acceptedAnswer":{"@type":"Answer","text":"The consequences depend on which laws apply to your visitors. GDPR supervisory authorities can issue fines up to €20 million or 4% of global annual revenue. The California AG can take enforcement action under CalOPPA against any commercial site lacking a conspicuous privacy policy link. Serial ADA demand-letter firms frequently cite a missing privacy policy as a CCPA violation alongside accessibility failures in the same demand letter. Google Ads and the major app stores also require a privacy policy for any product that collects user data."}},{"@type":"Question","name":"Is a generated privacy policy template legally valid?","acceptedAnswer":{"@type":"Answer","text":"A template is a legally valid starting point if it accurately reflects what your site actually does. The risk is a mismatch: a policy that says you don't use analytics when you have Google Analytics installed, or doesn't disclose a payment processor you use, is worse than no policy — it is an inaccurate representation that creates additional liability. Generate from your actual data practices. For a simple site, a well-generated template is fine. For anything complex — multiple jurisdictions, sensitive data, regulated industry — have a lawyer review it before you publish."}},{"@type":"Question","name":"Where on my site does the privacy policy need to appear?","acceptedAnswer":{"@type":"Answer","text":"Link it from the footer of every page — this is the standard location and the one regulators and users expect. CalOPPA requires the link to be conspicuous. A footer link on every page meets this standard. You should also link it from any signup or contact form and from your cookie-consent banner. Burying it in a sub-menu or making it accessible only from an about page likely does not meet CalOPPA's conspicuousness requirement."}}]}}
+</script>
+<link rel="stylesheet" href="../styles.css?v=1">
+<style>
+  .doc .lede{font-size:clamp(17px,2.3vw,20px);color:var(--muted)}
+  .doc h2{scroll-margin-top:80px}
+  .doc h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:19px;margin:22px 0 6px;letter-spacing:-.01em}
+  .toc{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px;padding:0;list-style:none}
+  .toc a{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;color:var(--muted)}
+  .toc a:hover{border-color:var(--bay);color:var(--ink);text-decoration:none}
+  .callout{background:var(--warn-bg);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:14px 18px;margin:22px 0;font-size:15.5px;color:#5a3e10}
+  .callout.tip{background:var(--pass-bg);border-left-color:var(--pass);color:#1b4d30}
+  .law-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}
+  .law-table th{text-align:left;padding:10px 14px;border-bottom:2px solid var(--line);font-weight:600;font-family:"Fraunces",serif;font-size:15px}
+  .law-table td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+  .law-table tr:last-child td{border-bottom:none}
+  .law-table .law-name{font-weight:600;white-space:nowrap}
+  .trigger-list{margin:16px 0;padding:0;list-style:none}
+  .trigger-list li{padding:8px 0 8px 32px;position:relative;border-bottom:1px solid var(--line);font-size:15.5px}
+  .trigger-list li:last-child{border-bottom:none}
+  .trigger-list li::before{content:"\2713";position:absolute;left:4px;color:var(--pass,#22a063);font-weight:700;font-size:16px}
+  .doc code.inline{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--line-2,#f0ebe2);padding:2px 6px;border-radius:5px}
+  .must-list{padding-left:0;list-style:none;margin:16px 0}
+  .must-list li{padding:10px 0 10px 36px;position:relative;border-bottom:1px solid var(--line)}
+  .must-list li:last-child{border-bottom:none}
+  .must-list li::before{content:"\2192";position:absolute;left:8px;color:var(--copper);font-weight:700}
+  .must-list strong{display:block;font-weight:600;margin-bottom:2px}
+  .suite{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 6px}
+  .suite a{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);transition:box-shadow .15s,transform .15s,border-color .15s}
+  .suite a:hover{text-decoration:none;box-shadow:var(--shadow-lift);transform:translateY(-2px);border-color:var(--line-2)}
+  .suite .s-name{font-family:"Fraunces",serif;font-weight:600;font-size:17px;color:var(--ink);display:block;margin:0 0 4px}
+  .suite p{color:var(--muted);font-size:14px;margin:0}
+  .suite .s-tag{display:inline-block;margin-bottom:8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--bay);background:var(--bay-tint,#e3eeef);border:1px solid #cfe1e3;border-radius:6px;padding:2px 8px}
+  .faq-section{margin:18px 0}
+  .faq-section details{border-bottom:1px solid var(--line);padding:14px 0}
+  .faq-section details:first-child{border-top:1px solid var(--line)}
+  .faq-section summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq-section summary::-webkit-details-marker{display:none}
+  .faq-section summary::after{content:"+";font-size:20px;color:var(--muted);flex-shrink:0}
+  .faq-section details[open] summary::after{content:"\2212"}
+  .faq-section details p{margin:12px 0 4px;color:var(--muted)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="masthead" role="banner">
+  <div class="wrap hdr-bar">
+    <a class="brand" href="../" aria-label="ComplyKit — go to homepage">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path d="M32 4 54 12 V30 C54 44 45 54 32 60 C19 54 10 44 10 30 V12 Z" fill="#bf6b3c"/>
+        <path d="M32 10 48 16 V30 C48 41 41.5 49 32 54 C22.5 49 16 41 16 30 V16 Z" fill="#14181f"/>
+        <rect x="24" y="20" width="16" height="20" rx="2.5" fill="#faf8f4"/>
+        <line x1="27.5" y1="25" x2="36.5" y2="25" stroke="#bf6b3c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="27.5" y1="29" x2="36.5" y2="29" stroke="#cbd2da" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="40" cy="40" r="9" fill="#13525a"/>
+        <path d="M36 40 39 43 44.5 36.5" fill="none" stroke="#faf8f4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="wordmark">ComplyKit</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="../about.html">How it works</a>
+      <a href="do-i-need-a-privacy-policy.html" aria-current="page">Fix guides</a>
+      <a href="../">Generate my policy</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="doc">
+  <div class="wrap narrow">
+    <p class="eyebrow" style="text-align:left">Compliance guide</p>
+    <h1>Do I Need a Privacy Policy for My Website?</h1>
+    <p class="lede">Short answer: if your site collects any personal data — email addresses, analytics cookies, contact form submissions, even server logs — you almost certainly do. Here's which laws require it, what triggers the obligation, and exactly what the policy must say.</p>
+
+    <div class="callout">
+      <strong>Not legal advice.</strong> This guide covers the requirements of major privacy laws accurately, but it is educational — not a legal opinion. For a compliance determination specific to your business and jurisdiction, consult a qualified attorney.
+    </div>
+
+    <ul class="toc" aria-label="On this page">
+      <li><a href="#laws">Which laws require it</a></li>
+      <li><a href="#triggers">What triggers the requirement</a></li>
+      <li><a href="#consequences">What happens without one</a></li>
+      <li><a href="#contents">What it must say</a></li>
+      <li><a href="#generate">Generate yours free</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <h2 id="laws">Which laws require a privacy policy</h2>
+    <p>No single global law requires a privacy policy, but several major frameworks do — and most public websites fall under at least one of them. The critical point these laws share: they apply based on where your <em>visitors</em> are, not where your server or company is located.</p>
+
+    <table class="law-table">
+      <thead>
+        <tr>
+          <th>Law</th>
+          <th>Who it covers</th>
+          <th>Size threshold</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="law-name">GDPR (EU / UK)</td>
+          <td>Any site that processes personal data of EU or UK residents</td>
+          <td>None. A one-person side project serving EU visitors is covered.</td>
+        </tr>
+        <tr>
+          <td class="law-name">CalOPPA (California)</td>
+          <td>Any commercial website or online service collecting personal info from California residents</td>
+          <td>None. "Commercial" is broadly interpreted — free tools with any commercial intent qualify.</td>
+        </tr>
+        <tr>
+          <td class="law-name">CCPA / CPRA (California)</td>
+          <td>For-profit businesses serving California residents</td>
+          <td>Must meet one of: $25M+ annual revenue, data on 100k+ consumers, or 50%+ revenue from selling data. Most small sites don't meet this — but CalOPPA still applies.</td>
+        </tr>
+        <tr>
+          <td class="law-name">COPPA (US)</td>
+          <td>Any site that knowingly collects data from children under 13</td>
+          <td>None. Requires a privacy policy plus verifiable parental consent before any data collection.</td>
+        </tr>
+        <tr>
+          <td class="law-name">CAN-SPAM / email ESPs</td>
+          <td>Any commercial email sender; required by Mailchimp, Klaviyo, and other ESPs as a condition of service</td>
+          <td>None. If you send marketing email, your privacy policy must cover those practices.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The practical takeaway: if your site is publicly accessible and collects any personal data, CalOPPA and GDPR are almost certainly in play simultaneously — and neither has a size or revenue threshold that would let a small site opt out.</p>
+
+    <h2 id="triggers">What triggers the requirement</h2>
+    <p>The requirement kicks in when you collect "personal data" — any information that can identify or be linked to a specific individual. This is broader than most people assume. You are almost certainly collecting personal data if your site has any of the following:</p>
+
+    <ul class="trigger-list">
+      <li><strong>A contact form</strong> — collects names, email addresses, and message content.</li>
+      <li><strong>Google Analytics, GA4, Plausible, Fathom, or any analytics tool</strong> — collects IP addresses and cookie identifiers. An IP address alone is personal data under GDPR.</li>
+      <li><strong>User accounts or login</strong> — collects email, password hash, profile data, and session identifiers.</li>
+      <li><strong>A newsletter or mailing list signup</strong> — collects email addresses and, via link tracking, open and click behavior.</li>
+      <li><strong>Payments (Stripe, PayPal, Lemon Squeezy, etc.)</strong> — even if you never touch card data, you receive the billing name, email, and country from the processor.</li>
+      <li><strong>A live-chat widget (Intercom, Crisp, Tawk, etc.)</strong> — these services set third-party cookies and log visitor data by default.</li>
+      <li><strong>Server-side hosting with access logs</strong> — Vercel, Netlify, Render, and most hosts log every HTTP request with the visitor's IP address and user-agent string.</li>
+    </ul>
+
+    <p>If your site has any one of these, it is collecting personal data and you need a privacy policy. The only genuine exception is a completely static page with no analytics, no forms, no third-party scripts, and access logs disabled at the hosting level. Even then, if the page has any commercial purpose, CalOPPA likely applies.</p>
+
+    <h2 id="consequences">What happens without one</h2>
+    <p>The consequences are real and apply to small sites as well as large ones:</p>
+
+    <ul class="trigger-list">
+      <li><strong>GDPR fines</strong> — supervisory authorities (the ICO in the UK, the DPA in Germany, the CNIL in France) can issue fines up to €20 million or 4% of global annual turnover. Enforcement against small operators happens; it most often follows a user complaint.</li>
+      <li><strong>CalOPPA enforcement</strong> — the California AG can bring action against any commercial site without a conspicuous privacy policy link. Most enforcement targets larger operators, but the statute has no size floor.</li>
+      <li><strong>ADA demand letters</strong> — serial ADA filers who scan business websites for accessibility failures frequently bundle a CCPA allegation (missing privacy policy, missing "Do Not Sell" link) in the same demand. The two claims arrive together in a single letter. A missing policy is on the automated checklist alongside missing <code class="inline">lang</code> attributes and unlabeled form fields.</li>
+      <li><strong>App store rejection</strong> — both Apple App Store and Google Play reject submissions for any app that collects user data but doesn't link a privacy policy URL in the store listing.</li>
+      <li><strong>Google Ads policy violation</strong> — sending paid traffic to a landing page that collects data without a visible privacy policy link violates Google's advertising policies and can result in account suspension.</li>
+    </ul>
+
+    <h2 id="contents">What your privacy policy must say</h2>
+    <p>A legally adequate policy needs to cover the following. The list below satisfies the intersection of GDPR and CalOPPA/CCPA requirements — the two frameworks most likely to apply to a typical public website:</p>
+
+    <ul class="must-list">
+      <li>
+        <strong>What data you collect</strong>
+        The categories of personal information — email, name, IP address, usage events, payment info. Be specific to what you actually collect; vague language creates the same liability as omitting a category.
+      </li>
+      <li>
+        <strong>Why you collect it (purpose and legal basis)</strong>
+        Under GDPR, each type of processing needs a stated legal basis — typically: legitimate interest (analytics), performance of a contract (order fulfillment), or consent (marketing email). Under CCPA, you disclose the "business or commercial purpose" for each category.
+      </li>
+      <li>
+        <strong>Who you share it with (third-party processors)</strong>
+        Name the processors and describe what they do: Google for analytics, Stripe for payments, Mailchimp for email, your hosting provider for server logs. Under CCPA, this section also discloses any "selling" or "sharing" of personal data for cross-context advertising.
+      </li>
+      <li>
+        <strong>How long you keep it</strong>
+        Retention periods by data type — e.g., account data until deletion request, server logs for 90 days, marketing email addresses until unsubscribe.
+      </li>
+      <li>
+        <strong>User rights and how to exercise them</strong>
+        Under GDPR: right to access, correct, delete, port, restrict processing, and object. Under CCPA: right to know, delete, correct, and opt out of data selling. Include a contact method for submitting requests — typically an email address.
+      </li>
+      <li>
+        <strong>Contact information for the data controller</strong>
+        Your name (or company name) and a reachable email address for privacy inquiries. GDPR requires a Data Protection Officer for certain organizations; most small sites are exempt, but the contact requirement is universal.
+      </li>
+      <li>
+        <strong>Last updated date</strong>
+        CalOPPA explicitly requires this. Update it whenever your data practices change — a new analytics tool, a new payment processor, expansion into a new region.
+      </li>
+    </ul>
+
+    <h2 id="generate">Generate yours free with ComplyKit</h2>
+    <p>ComplyKit generates a privacy policy, terms of service, and cookie notice from a short questionnaire — entirely in your browser, with no data sent anywhere. You toggle on what your site actually does (analytics, user accounts, payments, which regions you serve), and the matching clauses are written in. Every item in the "what it must say" list above is covered in the output.</p>
+    <p>The generated documents are a genuine starting point, not generic boilerplate — every clause is conditional on your answers. For a complex situation (multiple regulated jurisdictions, sensitive data categories, a regulated industry), have a lawyer review before you publish. For most indie apps, side projects, and small business sites, the output covers what regulators and users expect to see.</p>
+
+    <p style="margin:24px 0 8px"><a class="btn primary" href="../">Generate my privacy policy free &rarr;</a></p>
+
+    <div class="callout tip">
+      <strong>Flagged by ShipSafe?</strong> ShipSafe checks whether your live site has a visible privacy policy link and flags its absence as a legal risk. Generate your policy here, publish it at <code class="inline">/privacy.html</code> (or equivalent), and add a link in your site footer. Re-run ShipSafe to confirm the finding is cleared.
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <div class="faq-section">
+      <details open>
+        <summary>Do I need a privacy policy if my website is free and doesn't sell anything?</summary>
+        <p>Almost certainly yes. Whether your site charges money is irrelevant to privacy law — what matters is whether you collect personal data. A free tool running Google Analytics collects IP addresses and cookie identifiers. A portfolio site with a contact form collects email addresses. Under GDPR, either of these is data processing that requires a privacy policy. Under CalOPPA, "commercial intent" — including a free tool you might monetize in the future — is enough to trigger the requirement.</p>
+      </details>
+      <details>
+        <summary>Does GDPR apply to me if I'm not based in Europe?</summary>
+        <p>Yes. GDPR applies based on where your visitors are, not where your business is located. If your site is accessible to people in the EU or UK and you process their personal data, GDPR applies — regardless of where your server is, where you're incorporated, or where you live. The law explicitly covers businesses established outside the EU that offer goods or services to, or monitor the behavior of, EU data subjects. A freelancer in Austin or a solo founder in Singapore with EU traffic owes GDPR obligations for that traffic.</p>
+      </details>
+      <details>
+        <summary>What counts as "collecting personal data"?</summary>
+        <p>More things than most people expect. Personal data is any information that can identify or be singled out to a specific individual. Under GDPR, an IP address alone qualifies — it can be combined with other data to identify a person. This means Google Analytics, server access logs, contact forms, newsletter signups, login systems, and third-party chat widgets all constitute personal data collection. If your site does any of these things, you're collecting personal data, whether or not you ever intended to.</p>
+      </details>
+      <details>
+        <summary>What happens if I don't have a privacy policy?</summary>
+        <p>Consequences vary by framework. GDPR supervisory authorities can fine up to €20 million or 4% of global annual revenue — enforcement against small sites happens most often following a user complaint. The California AG can act under CalOPPA against any commercial site without a conspicuous policy link. Serial ADA demand-letter firms scan for missing privacy policies as a CCPA violation and bundle it into the same letter as accessibility allegations — a missing policy is on the automated checklist alongside missing <code class="inline">lang</code> attributes. Google Ads and both major app stores also require a visible privacy policy link as a condition of use.</p>
+      </details>
+      <details>
+        <summary>Is a generated privacy policy template legally valid?</summary>
+        <p>A template is a legally valid starting point when it accurately reflects what your site actually does. The risk is a mismatch: a policy that says you don't use analytics when Google Analytics is installed, or omits a payment processor you use, is worse than no policy — it is a false representation that creates additional liability. Generate from your real data practices. For a simple site, a well-generated template is adequate. For anything complex — multiple jurisdictions, sensitive data categories, regulated industry — have a qualified lawyer review before you publish.</p>
+      </details>
+      <details>
+        <summary>Where on my site does the privacy policy link need to appear?</summary>
+        <p>In the footer of every page — this is the standard, expected location that both regulators and users look for. CalOPPA requires the link to be "conspicuous"; a footer link visible on every page satisfies this. Also link it from any signup or contact form ("By submitting, you agree to our <a href='../'>Privacy Policy</a>") and from your cookie-consent banner. Placing it only in a sub-menu or burying it under an about page likely does not meet CalOPPA's conspicuousness standard.</p>
+      </details>
+    </div>
+
+    <h2 style="margin-top:48px">Also in the Copper Bay Labs ship-safety suite</h2>
+    <p>A privacy policy is one of several things to audit before you ship. These free tools cover security, accessibility, and exposed secrets:</p>
+    <div class="suite">
+      <a href="https://labs.copperbaytech.com/shipsafe/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">ADA / WCAG risk</span>
+        <span class="s-name">ShipSafe</span>
+        <p>Checks your live site for accessibility and privacy-law gaps that attract ADA demand letters.</p>
+      </a>
+      <a href="https://labs.copperbaytech.com/leakcheck/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">Secret scanning</span>
+        <span class="s-name">LeakCheck</span>
+        <p>Paste code or a config file and see exposed API keys and tokens flagged before they reach the repo.</p>
+      </a>
+      <a href="https://labs.copperbaytech.com/hardencheck/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">Security headers</span>
+        <span class="s-name">HardenCheck</span>
+        <p>Scan your live site's HTTP headers for missing CSP, HSTS, and other security hardening flags.</p>
+      </a>
+      <a href="https://labs.copperbaytech.com/exposurecheck/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">Post-deploy</span>
+        <span class="s-name">ExposureCheck</span>
+        <p>Scan your live URL for exposed <code class="inline">.env</code> files, <code class="inline">.git</code> directories, and bundled secrets.</p>
+      </a>
+    </div>
+  </div>
+</article>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="wrap foot">
+    <div>
+      <a class="brand small" href="../" aria-label="ComplyKit — go to homepage">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 4 54 12 V30 C54 44 45 54 32 60 C19 54 10 44 10 30 V12 Z" fill="#bf6b3c"/>
+          <path d="M32 10 48 16 V30 C48 41 41.5 49 32 54 C22.5 49 16 41 16 30 V16 Z" fill="#cbd2da"/>
+          <rect x="24" y="20" width="16" height="20" rx="2.5" fill="#14181f"/>
+          <line x1="27.5" y1="25" x2="36.5" y2="25" stroke="#bf6b3c" stroke-width="2" stroke-linecap="round"/>
+          <line x1="27.5" y1="29" x2="36.5" y2="29" stroke="#8a8276" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="40" cy="40" r="9" fill="#13525a"/>
+          <path d="M36 40 39 43 44.5 36.5" fill="none" stroke="#faf8f4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="wordmark">ComplyKit</span>
+      </a>
+      <p class="fine">Document templates, not legal advice. Consult a lawyer for your situation.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer navigation">
+      <a href="../about.html">How it works</a>
+      <a href="do-i-need-a-privacy-policy.html">Fix guides</a>
+      <a href="https://labs.copperbaytech.com/shipsafe/" target="_blank" rel="noopener noreferrer">ShipSafe</a>
+      <a href="https://labs.copperbaytech.com/leakcheck/" target="_blank" rel="noopener noreferrer">LeakCheck</a>
+      <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Get it done for you <span aria-hidden="true">&rarr;</span><span class="sr-only">(opens in new tab)</span></a>
+    </nav>
+  </div>
+  <div class="wrap">
+    <p class="madeby">A <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Copper Bay Labs<span class="sr-only"> (opens in new tab)</span></a> product. <span class="disclaimer">Templates and guidance, not legal advice.</span></p>
+  </div>
+</footer>
+
+</body>
+</html>
