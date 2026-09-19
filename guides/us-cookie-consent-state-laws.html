@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cookie Consent for US Websites: What State Privacy Laws Actually Require</title>
+<meta name="description" content="US websites don't need EU-style cookie consent banners. Instead, state privacy laws create an opt-out right when you run advertising pixels. Here's what 13 states actually require.">
+<link rel="canonical" href="https://labs.copperbaytech.com/complykit/guides/us-cookie-consent-state-laws.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ComplyKit">
+<meta property="og:title" content="Cookie Consent for US Websites: What State Privacy Laws Actually Require">
+<meta property="og:description" content="US websites don't need EU-style cookie consent banners. Instead, state privacy laws create an opt-out right when you run advertising pixels. Here's what 13 states actually require.">
+<meta property="og:url" content="https://labs.copperbaytech.com/complykit/guides/us-cookie-consent-state-laws.html">
+<meta property="og:image" content="https://labs.copperbaytech.com/complykit/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#faf8f4">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Cookie Consent for US Websites: What State Privacy Laws Actually Require","description":"US websites do not need EU-style prior consent cookie banners. Instead, 13 state privacy laws (CPRA, VCDPA, CPA, CTDPA, and others) create an opt-out right when you share personal data for advertising. This guide explains exactly what triggers the US opt-out requirement, which states require honoring the Global Privacy Control signal, and what you actually need to add to your site.","author":{"@type":"Organization","name":"Copper Bay Labs","url":"https://copperbaytech.com"},"publisher":{"@type":"Organization","name":"Copper Bay Labs","url":"https://copperbaytech.com"},"datePublished":"2026-09-19","dateModified":"2026-09-19","mainEntityOfPage":"https://labs.copperbaytech.com/complykit/guides/us-cookie-consent-state-laws.html","mainEntity":{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do US websites need a cookie consent banner?","acceptedAnswer":{"@type":"Answer","text":"No. There is no US federal or state law that requires a prior-consent cookie banner like GDPR or the EU ePrivacy Directive. US state privacy laws (CPRA, VCDPA, CPA, and others) use an opt-out model: you may run cookies and collect data unless the user opts out. The opt-out mechanism is a 'Do Not Sell or Share My Personal Information' link in your site footer — not a consent banner. If your site has no EU visitors and uses no advertising pixels, you likely need no cookie mechanism at all beyond a privacy policy disclosure."}},{"@type":"Question","name":"What triggers the CCPA/CPRA cookie opt-out requirement?","acceptedAnswer":{"@type":"Answer","text":"The CPRA opt-out requirement is triggered by 'sharing' personal data for cross-context behavioral advertising. In practice, this means running advertising pixels: Facebook Pixel, Google Ads remarketing tags, TikTok Pixel, LinkedIn Insight Tag, and similar ad-network scripts that pass visitor identifiers to advertising platforms. Standard analytics (Google Analytics 4 in analytics-only mode, Plausible, Fathom) without advertising features does not trigger the opt-out requirement. The test is whether a third party receives identifiers from your site visitors to serve them targeted ads elsewhere."}},{"@type":"Question","name":"Which states require honoring the Global Privacy Control (GPC) signal?","acceptedAnswer":{"@type":"Answer","text":"As of 2026, California (CPRA), Colorado (CPA), Connecticut (CTDPA), and Oregon (OCPA) require businesses to automatically honor the Global Privacy Control browser signal as an opt-out of data sharing. If a visitor's browser sends navigator.globalPrivacyControl === true, you must treat it as an opt-out and refrain from loading advertising pixels for that visitor, without requiring them to click any additional link. Texas, Virginia, Utah, and the other 2024–2026 state laws do not yet require GPC recognition."}},{"@type":"Question","name":"Does Google Analytics require cookie consent in the US?","acceptedAnswer":{"@type":"Answer","text":"Not in most cases. Google Analytics 4 in standard analytics mode (measuring page views, events, and user journeys without advertising features enabled) does not trigger any US state opt-out requirement. You collect IP addresses and cookie identifiers, which are personal data, but US state laws only require opt-out when you share that data for cross-context behavioral advertising — which standard analytics does not do. You do need to disclose analytics cookies in your privacy policy. If you enable Google Signals, Audience features, or remarketing in GA4, that data sharing does trigger the opt-out requirement."}},{"@type":"Question","name":"What is the 'Do Not Sell or Share My Personal Information' link?","acceptedAnswer":{"@type":"Answer","text":"It's the footer link that US state privacy laws require when you share personal data for advertising. Clicking it should provide a mechanism for the visitor to opt out of that data sharing — typically by loading a consent management tool that blocks advertising pixels for that visitor's browser going forward. Unlike a GDPR consent banner, this link is not required before the page loads; it can be a simple footer link on every page. The California AG has issued enforcement letters to companies missing this link when they run advertising cookies."}},{"@type":"Question","name":"If I have both US and EU visitors, which cookie rules apply?","acceptedAnswer":{"@type":"Answer","text":"Both apply simultaneously. EU/UK visitors are governed by the ePrivacy Directive and GDPR: you need prior consent before setting any non-essential cookie on their device. US visitors are governed by applicable state laws: you need an opt-out mechanism if you share data for advertising. The practical implementation is a consent management platform (CMP) that shows a consent banner to EU/UK visitors and an opt-out footer link to US visitors. Most CMPs geo-detect and serve the appropriate experience by country."}},{"@type":"Question","name":"Does CPRA apply to my small website?","acceptedAnswer":{"@type":"Answer","text":"CPRA applies to for-profit businesses that meet at least one threshold: $25M+ in annual gross revenue, personal data on 100,000+ California consumers or households, or 50%+ of revenue from selling or sharing personal data. Most small websites and indie apps don't meet any threshold. Other state laws have lower thresholds — Delaware's DPDPA covers businesses with data on 35,000+ residents, and Montana's MTCPA starts at 50,000 consumers — but all have thresholds. If you're below all thresholds and have no EU visitors, standard analytics requires no consent banner or opt-out link."}}]}}
+</script>
+<link rel="stylesheet" href="../styles.css?v=1">
+<style>
+  .doc .lede{font-size:clamp(17px,2.3vw,20px);color:var(--muted)}
+  .doc h2{scroll-margin-top:80px}
+  .doc h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:19px;margin:22px 0 6px;letter-spacing:-.01em}
+  .toc{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px;padding:0;list-style:none}
+  .toc a{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;color:var(--muted)}
+  .toc a:hover{border-color:var(--bay);color:var(--ink);text-decoration:none}
+  .callout{background:var(--warn-bg);border-left:4px solid var(--warn);border-radius:0 10px 10px 0;padding:14px 18px;margin:22px 0;font-size:15.5px;color:#5a3e10}
+  .callout.tip{background:var(--pass-bg);border-left-color:var(--pass);color:#1b4d30}
+  .callout.key{background:#e8edf8;border-left-color:#4a6fa5;color:#1e3a5f}
+  .state-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14.5px}
+  .state-table th{text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);font-weight:600;font-family:"Fraunces",serif;font-size:14px}
+  .state-table td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+  .state-table tr:last-child td{border-bottom:none}
+  .state-table .law-name{font-weight:600;white-space:nowrap}
+  .yes-c{color:var(--pass,#22a063);font-weight:600}
+  .no-c{color:var(--muted);font-size:13px}
+  .scenario-card{border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0;box-shadow:var(--shadow);display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
+  .sc-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-weight:700;font-size:16px;flex-shrink:0}
+  .scenario-card.verdict-req .sc-num{background:var(--warn-bg);color:#5a3e10;border:1px solid #e6c97a}
+  .scenario-card.verdict-clear .sc-num{background:var(--pass-bg);color:#1b4d30;border:1px solid #b8dfcb}
+  .sc-verdict{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:2px 8px;margin-bottom:8px}
+  .verdict-req .sc-verdict{color:#5a3e10;background:var(--warn-bg);border:1px solid #e6c97a}
+  .verdict-clear .sc-verdict{color:#1b4d30;background:var(--pass-bg);border:1px solid #b8dfcb}
+  .scenario-card h3{margin:0 0 6px;font-family:"Fraunces",serif;font-weight:600;font-size:17px}
+  .scenario-card p{margin:0;font-size:15px;color:var(--muted);line-height:1.55}
+  .mistake-list{padding-left:0;list-style:none;margin:16px 0}
+  .mistake-list li{padding:10px 0 10px 36px;position:relative;border-bottom:1px solid var(--line);font-size:15.5px;line-height:1.55}
+  .mistake-list li:last-child{border-bottom:none}
+  .mistake-list li::before{content:"\26A0";position:absolute;left:6px;color:var(--warn,#d97706);font-size:16px}
+  .code-block{background:#f0ebe2;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:16px 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.6;overflow-x:auto}
+  .suite{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0 6px}
+  .suite a{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);transition:box-shadow .15s,transform .15s,border-color .15s}
+  .suite a:hover{text-decoration:none;box-shadow:var(--shadow-lift);transform:translateY(-2px);border-color:var(--line-2)}
+  .suite .s-name{font-family:"Fraunces",serif;font-weight:600;font-size:17px;color:var(--ink);display:block;margin:0 0 4px}
+  .suite p{color:var(--muted);font-size:14px;margin:0}
+  .suite .s-tag{display:inline-block;margin-bottom:8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--bay);background:var(--bay-tint,#e3eeef);border:1px solid #cfe1e3;border-radius:6px;padding:2px 8px}
+  .faq-section{margin:18px 0}
+  .faq-section details{border-bottom:1px solid var(--line);padding:14px 0}
+  .faq-section details:first-child{border-top:1px solid var(--line)}
+  .faq-section summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq-section summary::-webkit-details-marker{display:none}
+  .faq-section summary::after{content:"+";font-size:20px;color:var(--muted);flex-shrink:0}
+  .faq-section details[open] summary::after{content:"\2212"}
+  .faq-section details p{margin:12px 0 4px;color:var(--muted)}
+  .doc code.inline{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--line-2,#f0ebe2);padding:2px 6px;border-radius:5px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="masthead" role="banner">
+  <div class="wrap hdr-bar">
+    <a class="brand" href="../" aria-label="ComplyKit — go to homepage">
+      <svg class="mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <path d="M32 4 54 12 V30 C54 44 45 54 32 60 C19 54 10 44 10 30 V12 Z" fill="#bf6b3c"/>
+        <path d="M32 10 48 16 V30 C48 41 41.5 49 32 54 C22.5 49 16 41 16 30 V16 Z" fill="#14181f"/>
+        <rect x="24" y="20" width="16" height="20" rx="2.5" fill="#faf8f4"/>
+        <line x1="27.5" y1="25" x2="36.5" y2="25" stroke="#bf6b3c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="27.5" y1="29" x2="36.5" y2="29" stroke="#cbd2da" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="40" cy="40" r="9" fill="#13525a"/>
+        <path d="M36 40 39 43 44.5 36.5" fill="none" stroke="#faf8f4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="wordmark">ComplyKit</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="../about.html">How it works</a>
+      <a href="do-i-need-a-privacy-policy.html">Do I need a policy?</a>
+      <a href="what-should-a-privacy-policy-include.html">What to include</a>
+      <a href="cookie-consent-banner-requirements.html">Cookie consent</a>
+      <a href="which-privacy-laws-apply-to-my-website.html">Which laws apply?</a>
+      <a href="gdpr-privacy-policy-saas.html">GDPR for SaaS</a>
+      <a href="us-cookie-consent-state-laws.html" aria-current="page">US state laws</a>
+      <a href="../">Generate my policy</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="doc">
+  <div class="wrap narrow">
+    <p class="eyebrow" style="text-align:left">Compliance guide</p>
+    <h1>Cookie Consent for US Websites: What State Privacy Laws Actually Require</h1>
+    <p class="lede">US privacy law is <em>opt-out</em>, not opt-in. No US state or federal law requires a prior-consent cookie banner like GDPR does. What 13 states require instead is an opt-out link &mdash; and only when you run advertising pixels. Here&rsquo;s what actually applies to your site.</p>
+
+    <div class="callout key">
+      <strong>The key distinction:</strong> EU law (GDPR + ePrivacy) says <em>&ldquo;don&rsquo;t set non-essential cookies until the user says yes.&rdquo;</em> US state law says <em>&ldquo;you can set cookies, but give users a way to say no to data sharing for advertising.&rdquo;</em> These are fundamentally different mechanisms.
+    </div>
+
+    <div class="callout">
+      <strong>Not legal advice.</strong> This guide accurately covers US state privacy law requirements as of September 2026, but it is educational &mdash; not a legal opinion. Consult a qualified attorney for your specific situation.
+    </div>
+
+    <ul class="toc" aria-label="On this page">
+      <li><a href="#no-banner">No prior consent required</a></li>
+      <li><a href="#when-optout">When opt-out IS required</a></li>
+      <li><a href="#gpc">Global Privacy Control</a></li>
+      <li><a href="#state-table">State law table</a></li>
+      <li><a href="#scenarios">Practical scenarios</a></li>
+      <li><a href="#misconceptions">Common misconceptions</a></li>
+      <li><a href="#what-to-add">What to add to your site</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <h2 id="no-banner">US websites don&rsquo;t need a prior-consent cookie banner</h2>
+    <p>As of September 2026, there is no US federal cookie consent law, and no US state law requires a prior-consent cookie banner. The 13 states that have enacted comprehensive privacy legislation &mdash; California, Virginia, Colorado, Connecticut, Utah, Texas, Oregon, Montana, Iowa, Delaware, New Hampshire, New Jersey, and North Carolina &mdash; all use an <strong>opt-out model</strong>, not an opt-in model.</p>
+
+    <p>Under the opt-out model:</p>
+    <ul style="margin:12px 0 12px 20px;font-size:15.5px;line-height:1.7;color:var(--muted)">
+      <li>You may load cookies and collect personal data without asking first</li>
+      <li>You must disclose what you collect in a privacy policy</li>
+      <li>If you <em>share</em> that data with third parties for advertising, you must provide an opt-out mechanism</li>
+      <li>You honor opt-outs going forward &mdash; you don&rsquo;t need to delete data already collected</li>
+    </ul>
+
+    <p>This is the opposite of GDPR&rsquo;s prior-consent requirement. Under EU law, non-essential cookies cannot fire until the user actively accepts. Under US law, cookies can fire freely &mdash; the obligation only arises when you share the resulting data for cross-context behavioral advertising.</p>
+
+    <h2 id="when-optout">When US opt-out IS required: advertising pixels</h2>
+    <p>The US opt-out obligation is triggered by <strong>&ldquo;selling&rdquo; or &ldquo;sharing&rdquo; personal data for cross-context behavioral advertising</strong>. In practice, this means running advertising pixels &mdash; code that sends visitor identifiers to ad networks so they can show those visitors targeted ads on other websites.</p>
+
+    <p>These integrations typically trigger the opt-out requirement:</p>
+    <ul style="margin:10px 0 10px 20px;font-size:15.5px;line-height:1.7;color:var(--muted)">
+      <li><strong>Facebook Pixel / Meta Pixel</strong> &mdash; sends visitor identifiers to Meta for retargeting</li>
+      <li><strong>Google Ads remarketing tags</strong> &mdash; adds visitors to Google retargeting lists</li>
+      <li><strong>TikTok Pixel, LinkedIn Insight Tag</strong> &mdash; cross-site retargeting</li>
+      <li><strong>Google AdSense</strong> &mdash; serves behavioral ads based on cross-site tracking</li>
+      <li><strong>Any ad network code that syncs visitor data with an ad platform</strong></li>
+    </ul>
+
+    <p>These integrations typically do <em>not</em> trigger the opt-out requirement:</p>
+    <ul style="margin:10px 0 10px 20px;font-size:15.5px;line-height:1.7;color:var(--muted)">
+      <li><strong>Google Analytics 4 (analytics-only mode)</strong> &mdash; measures traffic without advertising features</li>
+      <li><strong>Plausible Analytics, Fathom</strong> &mdash; cookieless, privacy-first analytics</li>
+      <li><strong>Hotjar, Microsoft Clarity</strong> &mdash; session recording not tied to ad networks</li>
+      <li><strong>Stripe, PayPal payment widgets</strong> &mdash; payment processing, not behavioral advertising</li>
+      <li><strong>First-party functional cookies</strong> &mdash; session, auth, cart, preferences</li>
+    </ul>
+
+    <p>The key test: <em>does the code pass visitor identifiers to a third party to enable serving that visitor targeted ads on other sites?</em> If yes, that&rsquo;s &ldquo;sharing&rdquo; under CPRA and equivalent state laws.</p>
+
+    <h2 id="gpc">Global Privacy Control (GPC): automatic opt-out signal</h2>
+    <p>Global Privacy Control is a browser-level signal (<code class="inline">navigator.globalPrivacyControl === true</code>) that users can set to indicate they want to opt out of data selling and sharing. California (CPRA), Colorado (CPA), Connecticut (CTDPA), and Oregon (OCPA) explicitly require businesses to recognize GPC as a valid opt-out &mdash; equivalent to clicking the &ldquo;Do Not Sell or Share&rdquo; link.</p>
+
+    <p>If your site serves visitors from these four states and you run advertising pixels, you must check for the GPC signal and honor it automatically:</p>
+
+    <pre class="code-block">if (!navigator.globalPrivacyControl) {
+  // GPC not set &mdash; user has not opted out via browser signal
+  loadFacebookPixel();
+  loadGoogleAdsTag();
+}
+// If navigator.globalPrivacyControl === true, skip advertising pixels</pre>
+
+    <p>The remaining states with privacy laws (Virginia, Utah, Texas, Montana, Iowa, Delaware, New Hampshire, New Jersey, North Carolina) do not currently require GPC recognition. Implementing GPC support universally is best practice regardless.</p>
+
+    <h2 id="state-table">US state privacy law table</h2>
+    <p>All 13 US state privacy laws with comprehensive coverage as of September 2026. All use opt-out models &mdash; none require prior consent for cookies.</p>
+
+    <table class="state-table">
+      <thead>
+        <tr>
+          <th>State / Law</th>
+          <th>Effective</th>
+          <th>Applicability threshold</th>
+          <th>Opt-out</th>
+          <th>GPC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="law-name">CA &mdash; CPRA</td>
+          <td>Jan 2023</td>
+          <td>$25M revenue <em>or</em> 100k consumers <em>or</em> 50% rev from selling</td>
+          <td class="yes-c">Yes</td>
+          <td class="yes-c">Yes</td>
+        </tr>
+        <tr>
+          <td class="law-name">VA &mdash; VCDPA</td>
+          <td>Jan 2023</td>
+          <td>100k+ VA consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">CO &mdash; CPA</td>
+          <td>Jul 2023</td>
+          <td>100k+ CO consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="yes-c">Yes</td>
+        </tr>
+        <tr>
+          <td class="law-name">CT &mdash; CTDPA</td>
+          <td>Jul 2023</td>
+          <td>100k+ CT consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="yes-c">Yes</td>
+        </tr>
+        <tr>
+          <td class="law-name">UT &mdash; UCPA</td>
+          <td>Dec 2023</td>
+          <td>100k+ UT consumers <em>or</em> $25k rev from 25k+</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">TX &mdash; TDPSA</td>
+          <td>Jul 2024</td>
+          <td>100k+ TX consumers (small biz exempt)</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">OR &mdash; OCPA</td>
+          <td>Jul 2024</td>
+          <td>100k+ OR consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="yes-c">Yes</td>
+        </tr>
+        <tr>
+          <td class="law-name">MT &mdash; MTCPA</td>
+          <td>Oct 2024</td>
+          <td>50k+ MT consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">IA &mdash; ICDPA</td>
+          <td>Jan 2025</td>
+          <td>100k+ IA consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">DE &mdash; DPDPA</td>
+          <td>Jan 2025</td>
+          <td>35k+ DE consumers <em>or</em> 10k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">NH &mdash; NHPA</td>
+          <td>Jan 2025</td>
+          <td>35k+ NH consumers <em>or</em> 10k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">NJ &mdash; NJDPA</td>
+          <td>Jan 2025</td>
+          <td>100k+ NJ consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+        <tr>
+          <td class="law-name">NC &mdash; NCDPA</td>
+          <td>Oct 2025</td>
+          <td>100k+ NC consumers <em>or</em> 25k+ from data sales</td>
+          <td class="yes-c">Yes</td>
+          <td class="no-c">No</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="scenarios">Practical scenarios: what your site actually needs</h2>
+
+    <div class="scenario-card verdict-clear">
+      <div class="sc-num">1</div>
+      <div>
+        <span class="sc-verdict">No action required</span>
+        <h3>Analytics-only site (no advertising)</h3>
+        <p>Your site uses Google Analytics 4 without advertising features, or Plausible/Fathom. No advertising pixels. US-only audience. <strong>Result:</strong> No opt-out link needed. Disclose cookie use in your privacy policy. No consent banner required.</p>
+      </div>
+    </div>
+
+    <div class="scenario-card verdict-req">
+      <div class="sc-num">2</div>
+      <div>
+        <span class="sc-verdict">Opt-out required</span>
+        <h3>E-commerce with Facebook Pixel + Google Ads, CPRA-scale traffic</h3>
+        <p>$30M revenue, runs Facebook Pixel and Google Ads remarketing. California visitors included. <strong>Result:</strong> Add &ldquo;Do Not Sell or Share My Personal Information&rdquo; footer link. Implement GPC signal detection. Block advertising pixels for opted-out users.</p>
+      </div>
+    </div>
+
+    <div class="scenario-card verdict-clear">
+      <div class="sc-num">3</div>
+      <div>
+        <span class="sc-verdict">No action required</span>
+        <h3>SaaS with under 100k users</h3>
+        <p>B2B SaaS, 15,000 users, Stripe + Postmark + Mixpanel (analytics-only). No advertising pixels. <strong>Result:</strong> Below all US state thresholds. No opt-out link required. Privacy policy disclosure of data collected is sufficient.</p>
+      </div>
+    </div>
+
+    <div class="scenario-card verdict-req">
+      <div class="sc-num">4</div>
+      <div>
+        <span class="sc-verdict">Best practice to add</span>
+        <h3>Content site monetizing with Google AdSense</h3>
+        <p>Blog or content site with AdSense behavioral ads. Primarily US audience. May or may not meet CPRA thresholds. <strong>Result:</strong> If under thresholds, no strict legal requirement &mdash; but Google&rsquo;s own AdSense policies increasingly require user consent disclosures. Adding an opt-out link is best practice and may be required by AdSense terms.</p>
+      </div>
+    </div>
+
+    <h2 id="misconceptions">Common misconceptions about US cookie law</h2>
+
+    <ul class="mistake-list">
+      <li>
+        <strong>&ldquo;I need a cookie banner because I read about GDPR&rdquo;</strong> &mdash; GDPR only applies if you have EU or UK visitors. A US-only site with US-only traffic has no GDPR obligations. If you do have EU visitors, a consent banner is required for EU traffic &mdash; but not for US traffic specifically.
+      </li>
+      <li>
+        <strong>&ldquo;Google Analytics requires consent in the US&rdquo;</strong> &mdash; Standard GA4 (no advertising features, no Google Signals) does not trigger any US opt-out requirement. You collect data, but you&rsquo;re not sharing it for cross-context behavioral advertising. Disclose it in your privacy policy; no opt-out link required.
+      </li>
+      <li>
+        <strong>&ldquo;CPRA applies to every US business&rdquo;</strong> &mdash; CPRA applies to for-profit businesses meeting one of three thresholds ($25M revenue, 100k consumers, or 50% revenue from data sales). Most indie apps and small businesses fall below all thresholds. No US privacy law applies to every website regardless of size.
+      </li>
+      <li>
+        <strong>&ldquo;An opt-out link means I need a consent management platform&rdquo;</strong> &mdash; A CMP is one way to implement opt-out, but it&rsquo;s not required. A simple footer link pointing to an opt-out page, combined with a cookie to remember the preference, satisfies the requirement for many sites.
+      </li>
+      <li>
+        <strong>&ldquo;Once I add the opt-out link, I&rsquo;m fully compliant&rdquo;</strong> &mdash; The link must actually work. An opt-out that records a preference but still loads advertising pixels for opted-out users is non-compliant. Opt-outs must be honored within 15 business days under CPRA, and advertising pixels must not fire for opted-out users.
+      </li>
+    </ul>
+
+    <h2 id="what-to-add">What to actually add to your US-facing site</h2>
+    <p><strong>If you run no advertising pixels:</strong> No opt-out link required. Ensure your privacy policy discloses the cookies you use and what data they collect. That&rsquo;s the complete US compliance requirement.</p>
+
+    <p><strong>If you run advertising pixels and meet a state threshold:</strong></p>
+    <ol style="margin:12px 0 12px 20px;font-size:15.5px;line-height:1.7;color:var(--muted)">
+      <li>Add a &ldquo;Do Not Sell or Share My Personal Information&rdquo; link to your site footer on every page</li>
+      <li>That link should lead to an opt-out mechanism &mdash; a page with a button, or a consent management tool</li>
+      <li>Implement GPC signal detection in your page JavaScript to automatically honor browser-level opt-outs</li>
+      <li>When a user opts out, block advertising pixels from loading for that visitor&rsquo;s current and future sessions</li>
+      <li>Update your privacy policy to describe the opt-out right and how to exercise it</li>
+    </ol>
+
+    <p><strong>If you have both US and EU visitors:</strong> You need both mechanisms &mdash; an opt-out footer link for US visitors, and a prior-consent banner for EU/UK visitors. Most consent management platforms handle both by geo-detecting visitor location and showing the appropriate experience. ComplyKit generates a cookie banner that satisfies the EU consent standard; add the US opt-out footer link separately.</p>
+
+    <div class="callout tip">
+      <strong>Already generated a policy?</strong> If your ComplyKit policy was generated with California (CCPA) selected, it already includes the &ldquo;Do Not Sell or Share&rdquo; disclosure. Verify it accurately reflects whether you run advertising pixels &mdash; and add the footer opt-out link if you do. See <a href="cookie-consent-banner-requirements.html">cookie consent banner requirements</a> for the EU consent standard.
+    </div>
+
+    <h2 id="faq">Frequently asked questions</h2>
+    <div class="faq-section">
+      <details open>
+        <summary>Do US websites need a cookie consent banner?</summary>
+        <p>No. There is no US federal or state law that requires a prior-consent cookie banner like GDPR or the EU ePrivacy Directive. US state privacy laws use an opt-out model: you may run cookies and collect data by default, and users have the right to opt out of having their data shared for advertising. The opt-out mechanism is a footer link &mdash; not a banner that blocks page access until the user responds. If your site has no EU visitors and uses no advertising pixels, you need no cookie mechanism beyond a privacy policy disclosure.</p>
+      </details>
+      <details>
+        <summary>What triggers the CCPA/CPRA cookie opt-out requirement?</summary>
+        <p>&ldquo;Sharing&rdquo; personal data for cross-context behavioral advertising. In practice: Facebook Pixel, Google Ads remarketing tags, TikTok Pixel, LinkedIn Insight Tag, Google AdSense, and similar ad-network scripts that pass visitor identifiers to advertising platforms. Standard analytics (GA4 in analytics-only mode, Plausible, Fathom, Hotjar) without advertising features does not trigger the opt-out requirement. The test is whether a third party receives visitor identifiers from your site to serve those visitors targeted ads elsewhere.</p>
+      </details>
+      <details>
+        <summary>Which states require honoring the Global Privacy Control (GPC) signal?</summary>
+        <p>As of 2026: California (CPRA), Colorado (CPA), Connecticut (CTDPA), and Oregon (OCPA). If a visitor&rsquo;s browser sends <code class="inline">navigator.globalPrivacyControl === true</code>, you must treat it as an opt-out and skip advertising pixels &mdash; without requiring them to click any link. Texas, Virginia, Utah, Montana, Iowa, Delaware, New Hampshire, New Jersey, and North Carolina do not currently require GPC recognition, though implementing it universally is best practice.</p>
+      </details>
+      <details>
+        <summary>Does Google Analytics require cookie consent in the US?</summary>
+        <p>Not in most cases. GA4 in standard analytics mode doesn&rsquo;t trigger any US state opt-out requirement &mdash; you&rsquo;re measuring your own traffic, not sharing data for cross-context advertising. Disclose analytics cookies in your privacy policy. The trigger for US opt-out obligations is enabling Google Signals, Audience features, or linking GA4 to a Google Ads remarketing audience &mdash; that constitutes &ldquo;sharing&rdquo; under CPRA for California visitors above the threshold.</p>
+      </details>
+      <details>
+        <summary>What is the &ldquo;Do Not Sell or Share My Personal Information&rdquo; link?</summary>
+        <p>A footer link required by US state privacy laws when you share personal data for advertising. Clicking it provides the visitor a way to opt out of data sharing for advertising &mdash; typically by setting a preference that blocks advertising pixels from loading for that visitor&rsquo;s browser going forward. Unlike a GDPR banner, it doesn&rsquo;t need to appear before the page loads. A simple text link in every page&rsquo;s footer pointing to an opt-out page or mechanism is sufficient.</p>
+      </details>
+      <details>
+        <summary>If I have both US and EU visitors, which cookie rules apply?</summary>
+        <p>Both simultaneously. EU/UK visitors require prior consent before non-essential cookies fire (GDPR + ePrivacy). US visitors require an opt-out mechanism if you share data for advertising. The practical solution is a consent management platform that geo-detects visitor location: consent banner for EU/UK users, opt-out footer link for US users. ComplyKit generates the EU-standard cookie banner. Add the &ldquo;Do Not Sell or Share&rdquo; footer link separately for US compliance when you run advertising pixels.</p>
+      </details>
+      <details>
+        <summary>Does CPRA apply to my small website?</summary>
+        <p>CPRA applies to for-profit businesses meeting at least one threshold: $25M+ annual revenue, personal data on 100k+ California consumers/households, or 50%+ revenue from selling or sharing data. Most indie apps don&rsquo;t qualify. Other states have lower thresholds &mdash; Delaware&rsquo;s DPDPA covers 35k+ residents, Montana&rsquo;s MTCPA covers 50k+ consumers &mdash; but all have thresholds. If you&rsquo;re below all of them and have no EU visitors, analytics-only tools with no advertising pixels require no cookie banner or opt-out link beyond a privacy policy disclosure.</p>
+      </details>
+    </div>
+
+    <h2 style="margin-top:48px">Also in the Copper Bay Labs ship-safety suite</h2>
+    <p>Cookie compliance is one part of launching safely. These free tools cover the other gaps &mdash; security headers, exposed secrets, and accessibility:</p>
+    <div class="suite">
+      <a href="https://labs.copperbaytech.com/shipsafe/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">ADA / WCAG risk</span>
+        <span class="s-name">ShipSafe</span>
+        <p>Checks your live site for accessibility and privacy-law gaps that attract ADA demand letters.</p>
+      </a>
+      <a href="https://labs.copperbaytech.com/hardencheck/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">Security headers</span>
+        <span class="s-name">HardenCheck</span>
+        <p>Scan your live site&rsquo;s HTTP headers for missing CSP, HSTS, and other security hardening flags.</p>
+      </a>
+      <a href="https://labs.copperbaytech.com/leakcheck/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">Secret scanning</span>
+        <span class="s-name">LeakCheck</span>
+        <p>Paste code or a config file to find exposed API keys and tokens before they reach the repo.</p>
+      </a>
+      <a href="https://labs.copperbaytech.com/exposurecheck/" target="_blank" rel="noopener noreferrer">
+        <span class="s-tag">Post-deploy</span>
+        <span class="s-name">ExposureCheck</span>
+        <p>Scan your live URL for exposed <code class="inline">.env</code> files, <code class="inline">.git</code> directories, and bundled secrets.</p>
+      </a>
+    </div>
+  </div>
+</article>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="wrap foot">
+    <div>
+      <a class="brand small" href="../" aria-label="ComplyKit — go to homepage">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 4 54 12 V30 C54 44 45 54 32 60 C19 54 10 44 10 30 V12 Z" fill="#bf6b3c"/>
+          <path d="M32 10 48 16 V30 C48 41 41.5 49 32 54 C22.5 49 16 41 16 30 V16 Z" fill="#cbd2da"/>
+          <rect x="24" y="20" width="16" height="20" rx="2.5" fill="#14181f"/>
+          <line x1="27.5" y1="25" x2="36.5" y2="25" stroke="#bf6b3c" stroke-width="2" stroke-linecap="round"/>
+          <line x1="27.5" y1="29" x2="36.5" y2="29" stroke="#8a8276" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="40" cy="40" r="9" fill="#13525a"/>
+          <path d="M36 40 39 43 44.5 36.5" fill="none" stroke="#faf8f4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="wordmark">ComplyKit</span>
+      </a>
+      <p class="fine">Document templates, not legal advice. Consult a lawyer for your situation.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer navigation">
+      <a href="../about.html">How it works</a>
+      <a href="do-i-need-a-privacy-policy.html">Do I need a policy?</a>
+      <a href="what-should-a-privacy-policy-include.html">What to include</a>
+      <a href="cookie-consent-banner-requirements.html">Cookie consent</a>
+      <a href="which-privacy-laws-apply-to-my-website.html">Which laws apply?</a>
+      <a href="gdpr-privacy-policy-saas.html">GDPR for SaaS</a>
+      <a href="us-cookie-consent-state-laws.html">US state laws</a>
+      <a href="https://labs.copperbaytech.com/shipsafe/" target="_blank" rel="noopener noreferrer">ShipSafe</a>
+      <a href="https://labs.copperbaytech.com/hardencheck/" target="_blank" rel="noopener noreferrer">HardenCheck</a>
+      <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Get it done for you <span aria-hidden="true">&rarr;</span><span class="sr-only">(opens in new tab)</span></a>
+    </nav>
+  </div>
+  <div class="wrap">
+    <p class="madeby">A <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Copper Bay Labs<span class="sr-only"> (opens in new tab)</span></a> product. <span class="disclaimer">Templates and guidance, not legal advice.</span></p>
+  </div>
+</footer>
+
+</body>
+</html>
