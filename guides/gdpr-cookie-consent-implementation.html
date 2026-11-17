@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How to Implement a GDPR Cookie Consent Banner | ComplyKit</title>
+        <meta name="description" content="GDPR requires valid consent before analytics and advertising cookies fire. Learn the 5 requirements, avoid dark patterns, and implement a compliant banner with vanilla JS.">
+        <link rel="canonical" href="https://labs.copperbaytech.com/complykit/guides/gdpr-cookie-consent-implementation.html">
+        <meta property="og:title" content="How to Implement a GDPR Cookie Consent Banner on Your Website">
+        <meta property="og:description" content="GDPR requires valid consent before analytics and advertising cookies fire. Learn the 5 requirements, avoid dark patterns, and implement a compliant banner with vanilla JS.">
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="https://labs.copperbaytech.com/complykit/guides/gdpr-cookie-consent-implementation.html">
+        <link rel="stylesheet" href="../styles.css?v=1">
+        <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+        <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"How to Implement a GDPR Cookie Consent Banner on Your Website","description":"GDPR requires cookie consent before analytics and advertising cookies fire on EU visitors devices. This guide covers the five consent validity requirements, dark patterns that invalidate banners, three implementation options, a vanilla JavaScript example, and Google Analytics Consent Mode v2 integration.","author":{"@type":"Organization","name":"Copper Bay Labs","url":"https://copperbaytech.com"},"publisher":{"@type":"Organization","name":"Copper Bay Labs","url":"https://copperbaytech.com"},"datePublished":"2026-11-17","dateModified":"2026-11-17","mainEntityOfPage":"https://labs.copperbaytech.com/complykit/guides/gdpr-cookie-consent-implementation.html","mainEntity":{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does my website need a cookie consent banner for GDPR?","acceptedAnswer":{"@type":"Answer","text":"Yes, if your website uses non-essential cookies (analytics, advertising, personalisation) and is accessible to EU/EEA visitors, GDPR requires freely given, specific, informed, and unambiguous consent before those cookies are set. Strictly necessary cookies that keep the site working do not require consent."}},{"@type":"Question","name":"What are the five GDPR consent requirements?","acceptedAnswer":{"@type":"Answer","text":"GDPR Article 4(11) and Recital 32 require consent to be: (1) freely given — no cookie wall, no bundled consent; (2) specific — separate toggles for analytics vs advertising; (3) informed — cookie names, purposes, and retention periods disclosed; (4) unambiguous — an affirmative action such as clicking Accept, not pre-ticked boxes; and (5) withdrawable — as easy to withdraw as it was to give."}},{"@type":"Question","name":"What are dark patterns in cookie consent banners?","acceptedAnswer":{"@type":"Answer","text":"Dark patterns manipulate users into accepting cookies. Examples: a bright Accept button alongside a small grey Reject link; hiding Reject behind a Manage settings sub-menu; pre-ticking optional categories; using nudging language. Regulators have fined organisations for these: CNIL fined Google 150 million euros in January 2022 for making rejection harder than acceptance; the Belgian APD issued orders against IAB Europe's TCF framework; the Austrian DSB ruled that Google Analytics transfers breached GDPR."}},{"@type":"Question","name":"Can I use localStorage to store consent status?","acceptedAnswer":{"@type":"Answer","text":"Yes. Storing a consent record in localStorage is acceptable and common. You should store the consent version, timestamp, and which categories the user accepted or rejected. Re-prompt if the stored version is older than your current cookie policy version."}},{"@type":"Question","name":"What is Google Consent Mode v2?","acceptedAnswer":{"@type":"Answer","text":"Google Consent Mode v2 is an API that tells Google tags (GA4, Google Ads) how to behave before and after consent. You set default states to denied before the banner loads, then update to granted once the user accepts. Without it, GA4 will not fire at all in regions where Google enforces consent mode (the EEA, UK, and Switzerland from March 2024)."}},{"@type":"Question","name":"Do I need a cookie consent banner for US visitors?","acceptedAnswer":{"@type":"Answer","text":"US federal law has no cookie consent requirement. However, the California CPRA requires a Do Not Sell or Share My Personal Information opt-out link if you sell or share data. Colorado, Connecticut, Virginia, Texas, and Oregon have similar opt-out requirements. These are opt-out laws, not opt-in consent, so they are simpler to comply with than GDPR."}},{"@type":"Question","name":"What is the minimum viable GDPR cookie consent implementation?","acceptedAnswer":{"@type":"Answer","text":"Block all non-essential cookies by default. Show a banner with equal-weight Accept and Reject buttons. Store the choice in localStorage. Load analytics or advertising scripts only after consent is granted. Add a Cookie settings or Withdraw consent link in the page footer. That is the minimum; a CMP adds auditing, a consent log, and automatic script blocking."}}]}}</script>
+</head>
+<body>
+        <header class="site-header">
+                <a href="../" class="logo" aria-label="ComplyKit home">ComplyKit</a>
+                <nav class="nav" aria-label="Primary navigation">
+                        <a href="../about.html">How it works</a>
+                        <a href="do-i-need-a-privacy-policy.html">Do I need a policy?</a>
+                        <a href="what-should-a-privacy-policy-include.html">What to include</a>
+                        <a href="cookie-consent-banner-requirements.html">Cookie consent</a>
+                        <a href="which-privacy-laws-apply-to-my-website.html">Which laws apply?</a>
+                        <a href="gdpr-privacy-policy-saas.html">GDPR for SaaS</a>
+                        <a href="us-cookie-consent-state-laws.html">US state laws</a>
+                        <a href="how-to-write-terms-of-service.html">Terms of Service</a>
+                        <a href="gdpr-vs-ccpa.html">GDPR vs CCPA</a>
+                        <a href="gdpr-cookie-consent-implementation.html" aria-current="page">Implement consent banner</a>
+                        <a href="../">Generate my policy</a>
+                </nav>
+        </header>
+        <main>
+                <article class="guide">
+                        <header class="guide-header">
+                                <h1>How to Implement a GDPR Cookie Consent Banner on Your Website</h1>
+                                <p class="guide-meta">Updated <time datetime="2026-11-17">November 17, 2026</time> &middot; 7 min read</p>
+                        </header>
+                        <section>
+                                <p>If your website uses Google Analytics, advertising pixels, or any other non-essential cookie and EU or EEA residents can visit it, GDPR requires you to obtain valid consent before those cookies are set. That means a cookie banner is not optional &mdash; it is a legal obligation.</p>
+                                <p>Getting it wrong is expensive. CNIL fined Google and Facebook each &euro;150 million in January 2022 for making the reject button harder to find than the accept button. This guide walks you through what valid consent actually requires, what dark patterns to avoid, and three ways to implement a compliant banner &mdash; including a working vanilla JavaScript example.</p>
+                        </section>
+                        <section>
+                                <h2>Why GDPR requires consent before cookies fire</h2>
+                                <p>Cookies that identify individual users &mdash; analytics cookies that track page views across sessions, advertising cookies that build behavioural profiles &mdash; are personal data under GDPR. Processing personal data requires a lawful basis. For tracking cookies, that basis must be consent: freely given, specific, informed, and unambiguous (Article 6(1)(a), Recital 32).</p>
+                                <p>Strictly necessary cookies &mdash; session tokens that keep you logged in, shopping cart cookies, load-balancing cookies &mdash; are exempt because they are essential for the service the user explicitly requested. Everything else needs opt-in consent before the cookie is set, not after.</p>
+                        </section>
+                        <section>
+                                <h2>The five GDPR consent requirements</h2>
+                                <p>Article 4(11) and Article 7 define what valid consent looks like. All five conditions must be met:</p>
+                                <ol>
+                                        <li><strong>Freely given.</strong> No cookie wall &mdash; you cannot deny access to the site if the user refuses. No bundled consent &mdash; accepting analytics and advertising cannot be a single checkbox.</li>
+                                        <li><strong>Specific.</strong> Each purpose must be separately controlled. Analytics, personalisation, and advertising are distinct purposes; a single &ldquo;Accept all tracking&rdquo; toggle does not satisfy specificity.</li>
+                                        <li><strong>Informed.</strong> Users must know which cookies are set, what they do, who they are shared with, and how long they persist. A vague &ldquo;we use cookies to improve your experience&rdquo; is not sufficient.</li>
+                                        <li><strong>Unambiguous.</strong> Consent must be an active, affirmative act &mdash; clicking a clearly labelled Accept button. Pre-ticked checkboxes, scrolling past a banner, or closing a pop-up are not valid consent (Recital 32).</li>
+                                        <li><strong>Withdrawable.</strong> Users must be able to withdraw consent as easily as they gave it. A &ldquo;Cookie settings&rdquo; or &ldquo;Withdraw consent&rdquo; link in every page footer is the standard implementation.</li>
+                                </ol>
+                        </section>
+                        <section>
+                                <h2>Dark patterns that invalidate your consent</h2>
+                                <p>Regulators have issued substantial fines specifically for manipulative banner design &mdash; not just for missing banners:</p>
+                                <ul>
+                                        <li><strong>Asymmetric buttons:</strong> A large, colourful &ldquo;Accept all&rdquo; button next to a small grey &ldquo;Reject&rdquo; link. CNIL&rsquo;s &euro;150 million Google fine (January 2022) explicitly cited this pattern. The fix: buttons must be visually equivalent.</li>
+                                        <li><strong>Buried rejection:</strong> Hiding &ldquo;Reject&rdquo; behind a &ldquo;Manage settings&rdquo; sub-menu that requires three additional clicks. Belgian APD orders required IAB Europe to redesign the TCF framework&rsquo;s consent flow for this reason.</li>
+                                        <li><strong>Pre-ticked categories:</strong> Presenting optional cookie categories with checkboxes pre-selected. Under Article 4(11), consent must be unambiguous &mdash; a pre-ticked box is a default, not an affirmative act.</li>
+                                        <li><strong>Nudge language:</strong> Phrasing like &ldquo;Accept to get the best experience&rdquo; implies that rejection will degrade the site, coercing consent. This fails the freely-given requirement.</li>
+                                        <li><strong>Infinite scroll acceptance:</strong> Claiming that scrolling past the banner counts as consent. Recital 32 is explicit: &ldquo;Silence, pre-ticked boxes or inactivity should not therefore constitute consent.&rdquo;</li>
+                                </ul>
+                        </section>
+                        <section>
+                                <h2>Cookie categories at a glance</h2>
+                                <div class="table-wrap">
+                                        <table>
+                                                <thead>
+                                                        <tr>
+                                                                <th>Category</th>
+                                                                <th>Examples</th>
+                                                                <th>Consent required?</th>
+                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                        <tr>
+                                                                <td>Strictly necessary</td>
+                                                                <td>Session token, CSRF token, load balancer cookie</td>
+                                                                <td>No</td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>Analytics</td>
+                                                                <td>Google Analytics (_ga, _gid), Mixpanel</td>
+                                                                <td>Yes</td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>Personalisation</td>
+                                                                <td>Saved preferences, A/B test assignment</td>
+                                                                <td>Yes</td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>Advertising</td>
+                                                                <td>Google Ads (_gcl_au), Meta Pixel (_fbp)</td>
+                                                                <td>Yes</td>
+                                                        </tr>
+                                                </tbody>
+                                        </table>
+                                </div>
+                                <p>Cookieless analytics tools such as Plausible and Fathom do not set persistent identifiers and therefore do not require GDPR consent.</p>
+                        </section>
+                        <section>
+                                <h2>Three implementation options</h2>
+                                <h3>Option 1: Build it yourself (DIY)</h3>
+                                <p>Suitable for simple sites using only Google Analytics 4. Requires blocking GA4 by default, showing a compliant banner, storing the consent choice in localStorage, and updating Google Consent Mode v2. The vanilla JS example below covers all of this. The main ongoing risk is keeping the implementation updated as your cookie inventory changes.</p>
+                                <h3>Option 2: Free consent management platform</h3>
+                                <p>Tools such as Cookiebot&rsquo;s free tier (up to 100 pages), CookieYes free, and Osano&rsquo;s starter plan scan your site for cookies, generate a compliant banner, and maintain a consent log. Free tiers are ad-supported or limited to smaller sites but are a solid choice if you have more than one analytics or marketing tool.</p>
+                                <h3>Option 3: Paid CMP</h3>
+                                <p>Cookiebot, OneTrust, TrustArc, and Usercentrics charge monthly fees but provide full audit trails, consent receipts, IAB TCF integration for advertising networks, and automatic script blocking. Necessary if you run advertising campaigns, operate in a regulated sector, or need documented evidence of compliance during a supervisory authority inquiry.</p>
+                        </section>
+                        <section>
+                                <h2>Vanilla JavaScript implementation example</h2>
+                                <p>This example works with Google Analytics 4 and implements Google Consent Mode v2. Place all of it before your GA4 snippet in <code>&lt;head&gt;</code>:</p>
+                                <pre><code>/* 1. Set consent defaults BEFORE the GA4 snippet */
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  analytics_storage: 'denied',
+  ad_storage:        'denied',
+  wait_for_update:   500
+});
+
+/* 2. Check for a stored decision */
+(function() {
+  var stored = null;
+  try { stored = JSON.parse(localStorage.getItem('ck_consent')); } catch(e){}
+  if (stored &amp;&amp; stored.version === 1) {
+    if (stored.analytics) {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    }
+    return;
+  }
+
+  /* 3. Show banner */
+  var banner = document.createElement('div');
+  banner.id = 'ck-banner';
+  banner.setAttribute('role', 'dialog');
+  banner.setAttribute('aria-label', 'Cookie consent');
+  banner.innerHTML =
+    '&lt;p&gt;We use cookies to understand how visitors use this site.&lt;/p&gt;' +
+    '&lt;button id="ck-accept"&gt;Accept analytics&lt;/button&gt; ' +
+    '&lt;button id="ck-reject"&gt;Reject&lt;/button&gt;';
+  document.body.appendChild(banner);
+
+  function saveAndClose(analytics) {
+    try {
+      localStorage.setItem('ck_consent', JSON.stringify({
+        version: 1, analytics: analytics, ts: Date.now()
+      }));
+    } catch(e){}
+    if (analytics) {
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+    }
+    banner.remove();
+  }
+
+  document.getElementById('ck-accept')
+    .addEventListener('click', function(){ saveAndClose(true); });
+  document.getElementById('ck-reject')
+    .addEventListener('click', function(){ saveAndClose(false); });
+})();</code></pre>
+                                <p>Style <code>#ck-banner</code> with a fixed bottom bar. Add a &ldquo;Cookie settings&rdquo; link to your footer that runs <code>localStorage.removeItem('ck_consent'); location.reload();</code> so users can withdraw consent at any time &mdash; this satisfies Article 7(3).</p>
+                        </section>
+                        <section>
+                                <h2>Google Consent Mode v2</h2>
+                                <p>From March 2024 Google requires Consent Mode v2 for EEA, UK, and Switzerland users. Without it GA4 will not fire for those visitors at all &mdash; not even in a reduced, cookieless mode. The <code>gtag('consent', 'default', ...)</code> call in the example above sets the denied defaults before GA4 loads; the <code>gtag('consent', 'update', ...)</code> call grants analytics storage after the user accepts.</p>
+                                <p>If you use Google Tag Manager, configure Consent Initialization triggers and use the built-in Consent State variable rather than the manual approach above. All major CMPs include GTM templates that handle this automatically.</p>
+                        </section>
+                        <section>
+                                <h2>Storing and versioning consent in localStorage</h2>
+                                <p>The object stored under <code>ck_consent</code> includes a <code>version</code> field. When you add a new cookie category to your site, increment that version in both your banner code and your cookie policy. The check at step 2 detects the stale record and re-shows the banner, so returning visitors are re-prompted without you having to clear their storage.</p>
+                                <p>Keep the stored object minimal &mdash; a consent record is not personal data you need to protect, but there is no reason to store more than the version, timestamp, and per-category boolean flags.</p>
+                        </section>
+                        <section>
+                                <h2>US visitors and state opt-out laws</h2>
+                                <p>US federal law imposes no cookie consent requirement. However, California&rsquo;s CPRA (effective 2023) requires a &ldquo;Do Not Sell or Share My Personal Information&rdquo; opt-out link if you sell or share personal data with third parties such as advertising networks. Colorado, Connecticut, Virginia, Texas, and Oregon have passed substantially similar laws. These are opt-out frameworks &mdash; you do not need prior consent, only a clear opt-out mechanism &mdash; so they are simpler to implement than GDPR&rsquo;s opt-in regime. If your site serves both EU and US users, the GDPR banner also covers US compliance by giving all visitors equal control.</p>
+                        </section>
+                        <div class="cta-box">
+                                <h2>Generate your Privacy Policy and Cookie Policy</h2>
+                                <p>ComplyKit generates a plain-English privacy policy and cookie policy for your website &mdash; free, no account required, in under two minutes.</p>
+                                <a href="../" class="cta-btn">Generate my policy &rarr;</a>
+                        </div>
+                        <section>
+                                <h2>Related guides</h2>
+                                <div class="guide-cards">
+                                        <a href="cookie-consent-banner-requirements.html" class="guide-card">
+                                                <h3>Cookie consent banner requirements</h3>
+                                                <p>What your banner must say and do to satisfy GDPR, ePrivacy, and CCPA.</p>
+                                        </a>
+                                        <a href="which-privacy-laws-apply-to-my-website.html" class="guide-card">
+                                                <h3>Which privacy laws apply to my website?</h3>
+                                                <p>GDPR, CCPA, PIPEDA, and more &mdash; a plain-language map of who is covered.</p>
+                                        </a>
+                                        <a href="gdpr-vs-ccpa.html" class="guide-card">
+                                                <h3>GDPR vs CCPA: key differences</h3>
+                                                <p>How the EU and California frameworks compare on consent, rights, and enforcement.</p>
+                                        </a>
+                                        <a href="do-i-need-a-privacy-policy.html" class="guide-card">
+                                                <h3>Do I need a privacy policy?</h3>
+                                                <p>The short answer is probably yes &mdash; here is how to find out for sure.</p>
+                                        </a>
+                                </div>
+                        </section>
+                </article>
+        </main>
+        <footer class="site-footer">
+                <nav class="foot-nav" aria-label="Footer navigation">
+                        <a href="../about.html">How it works</a>
+                        <a href="do-i-need-a-privacy-policy.html">Do I need a policy?</a>
+                        <a href="what-should-a-privacy-policy-include.html">What to include</a>
+                        <a href="cookie-consent-banner-requirements.html">Cookie consent</a>
+                        <a href="which-privacy-laws-apply-to-my-website.html">Which laws apply?</a>
+                        <a href="gdpr-privacy-policy-saas.html">GDPR for SaaS</a>
+                        <a href="us-cookie-consent-state-laws.html">US state laws</a>
+                        <a href="how-to-write-terms-of-service.html">Terms of Service</a>
+                        <a href="gdpr-vs-ccpa.html">GDPR vs CCPA</a>
+                        <a href="gdpr-cookie-consent-implementation.html" aria-current="page">Implement consent banner</a>
+                        <a href="https://labs.copperbaytech.com/shipsafe/" target="_blank" rel="noopener noreferrer">ShipSafe</a>
+                        <a href="https://labs.copperbaytech.com/hardencheck/" target="_blank" rel="noopener noreferrer">HardenCheck</a>
+                        <a href="https://copperbaytech.com" target="_blank" rel="noopener noreferrer">Get it done for you <span aria-hidden="true">&rarr;</span><span class="sr-only">(opens in new tab)</span></a>
+                </nav>
+                <p class="foot-copy">&copy; 2026 Copper Bay Labs</p>
+        </footer>
+</body>
+</html>
